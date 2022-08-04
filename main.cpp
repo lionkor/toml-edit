@@ -4,13 +4,13 @@
 	#include <wx/wx.h>
 #endif
 
-#include "gui.h"
+#include "TomlEditFrame.h"
 
 class TomlEditApp : public wxApp
 {
 public:
 	virtual bool OnInit() {
-		auto *frame = new MainFrame(nullptr);
+		auto *frame = new TomlEditFrame();
 		frame->Show(true);
 		return true;
 	}

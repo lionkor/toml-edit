@@ -11,23 +11,37 @@
 
 MainFrame::MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
-	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->SetSizeHints( wxSize( 200,100 ), wxDefaultSize );
 
-	wxBoxSizer* bSizer1;
-	bSizer1 = new wxBoxSizer( wxVERTICAL );
+	m_menubar1 = new wxMenuBar( 0 );
+	m_menuFile = new wxMenu();
+	wxMenuItem* m_menuFileOpen;
+	m_menuFileOpen = new wxMenuItem( m_menuFile, wxID_ANY, wxString( _("Open") ) + wxT('\t') + wxT("Ctrl+O"), _("Open a TOML file"), wxITEM_NORMAL );
+	m_menuFile->Append( m_menuFileOpen );
 
-	m_tree = new wxTreeListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTL_DEFAULT_STYLE );
-	m_tree->AppendColumn( wxT("Entries"), wxCOL_WIDTH_DEFAULT, wxALIGN_LEFT, 0 );
+	m_menubar1->Append( m_menuFile, _("File") );
 
-	bSizer1->Add( m_tree, 1, wxALL|wxEXPAND, 5 );
+	this->SetMenuBar( m_menubar1 );
+
+	wxBoxSizer* bSizer2;
+	bSizer2 = new wxBoxSizer( wxVERTICAL );
+
+	m_propertyGrid = new wxPropertyGrid(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxPG_DEFAULT_STYLE);
+	bSizer2->Add( m_propertyGrid, 1, wxALL|wxEXPAND, 5 );
 
 
-	this->SetSizer( bSizer1 );
+	this->SetSizer( bSizer2 );
 	this->Layout();
+	m_statusBar2 = this->CreateStatusBar( 1, wxSTB_SIZEGRIP, wxID_ANY );
 
 	this->Centre( wxBOTH );
+
+	// Connect Events
+	m_menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrame::onFileOpen ), this, m_menuFileOpen->GetId());
 }
 
 MainFrame::~MainFrame()
 {
+	// Disconnect Events
+
 }

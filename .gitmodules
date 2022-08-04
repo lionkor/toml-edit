@@ -1,3 +1,6 @@
-[submodule "deps/wxWidgets"]
-	path = deps/wxWidgets
+[submodule "wxWidgets"]
+	path = wxWidgets
 	url = https://github.com/wxWidgets/wxWidgets
+[submodule "toml11"]
+	path = toml11
+	url = https://github.com/ToruNiina/toml11
